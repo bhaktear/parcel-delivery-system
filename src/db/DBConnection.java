@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 public class DBConnection {
 	static Connection con = null;
-	static String databaseName = "java_user"; //dbname
+	static String databaseName = "parcel_user"; //dbname
 	static String url = "jdbc:mysql://localhost:3306/" +  databaseName;
 	
 	static String userName = "bhaktear";	//db userName
