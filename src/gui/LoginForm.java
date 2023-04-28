@@ -13,7 +13,7 @@ public class LoginForm extends JFrame{
 	private JPasswordField passwordField;
 	private JButton loginButton;
 	//private JButton cancelButton;
-	private String tbl = "jdbc_user";
+	private String tbl = "parcel_user";
 	private String LoginErrMsg = "Invalid username or password";
 	
 	public LoginForm() {
