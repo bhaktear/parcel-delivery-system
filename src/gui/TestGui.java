@@ -1,7 +1,9 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -75,8 +77,10 @@ public class TestGui extends JFrame {
 		panel.setBounds(22, 82, 644, 123);
 		getContentPane().add(panel);
 		
+		
+		
 		JLabel lblMerchantName = new JLabel("Merchant Name");
-		lblMerchantName.setBounds(34, 23, 111, 15);
+		lblMerchantName.setBounds(12, 23, 111, 15);
 		getContentPane().add(lblMerchantName);
 		
 	

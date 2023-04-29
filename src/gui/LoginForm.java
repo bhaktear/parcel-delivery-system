@@ -88,6 +88,7 @@ public class LoginForm extends JFrame{
 				if(password.equals(pass)) {
 					//Login Successful
 					JOptionPane.showMessageDialog(null, "Login Successful");
+					//method after login
 					
 				}else {
 					JOptionPane.showMessageDialog(null, this.LoginErrMsg);
