@@ -90,11 +90,13 @@ public class LoginForm extends JFrame{
 					JOptionPane.showMessageDialog(null, "Login Successful");
 					//method after login
 					int role = rs.getInt("role");
-					if(role == 2) {
-						setVisible(false);
+					setVisible(false);
+					if(role == 1) {
+						AdminDashboard userDb = new AdminDashboard(user_id);
+						userDb.setVisible(true);
+					}else {
 						UserDashboad userDb = new UserDashboad(user_id);
 						userDb.setVisible(true);
-						
 					}
 				}else {
 					JOptionPane.showMessageDialog(null, this.LoginErrMsg);

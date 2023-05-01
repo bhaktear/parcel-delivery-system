@@ -56,8 +56,9 @@ public class OrderList extends JFrame implements ActionListener {
 		Map<String, Object> ufirst = userData.get(0);
 		//System.out.println(ufirst);
 		String role = ufirst.get("role").toString();
-		String user_id = (Integer.parseInt(role) == 1) ? "":this.userID;
+		String user_id = (Integer.parseInt(role) == 1) ? null:this.userID;
 		this.userRole = Integer.parseInt(role);
+		//System.out.println(user_id);
 		
 		setTitle("Order List");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,7 +134,8 @@ public class OrderList extends JFrame implements ActionListener {
 		if(e.getSource() == btnBack) {
 			setVisible(false);
 			if(this.userRole == 1) {
-				
+				AdminDashboard userDb = new AdminDashboard(this.userID);
+				userDb.setVisible(true);
 			}else {
 				UserDashboad userDb = new UserDashboad(this.userID);
 				userDb.setVisible(true);
