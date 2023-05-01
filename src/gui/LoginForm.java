@@ -19,7 +19,7 @@ public class LoginForm extends JFrame{
 	public LoginForm() {
 		setLayout(null);
 		setTitle("Login Form");
-		setSize(600, 300);
+		setSize(400, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
@@ -89,7 +89,13 @@ public class LoginForm extends JFrame{
 					//Login Successful
 					JOptionPane.showMessageDialog(null, "Login Successful");
 					//method after login
-					
+					int role = rs.getInt("role");
+					if(role == 2) {
+						setVisible(false);
+						UserDashboad userDb = new UserDashboad(user_id);
+						userDb.setVisible(true);
+						
+					}
 				}else {
 					JOptionPane.showMessageDialog(null, this.LoginErrMsg);
 					setVisible(false);

@@ -17,11 +17,46 @@ public class Utils {
 		return email.matches(regex);
 	}
 	
+	public static boolean validateDropdown(String drop) {
+		String str = "Choose One";
+		if(!str.contains(str)) return false;
+		return true;
+	}
+	
 	public static Map<String, Object> get_resp(int err, String msg, List<Map<String, Object>> data) {
 		Map<String, Object> resp = new HashMap<>();
 		resp.put("err",err);
 		resp.put("msg", msg);
 		resp.put("data", data);
+		return resp;
+	}
+	
+	public static Map<String, Object> getOptions(){
+		return getOptions(null);
+	}
+	
+	
+	public static Map<String, Object> getOptions(String type){
+		Map<String, Object> resp = new HashMap<>();
+		String tbl = "parcel_options";
+		String where = " where published=1";
+		if(type != "")  where += " and `type`='" + type + "'";
+		String sql = "select * from " + tbl + where;
+		resp = DBConnection.getData(sql);
+		return resp;
+	}
+	
+	public static Map<String, Object> getStatus(){
+		return getStatus(null);
+	}
+	
+	public static Map<String, Object> getStatus(String code){
+		Map<String, Object> resp = new HashMap<>();
+		String tbl = "parcel_status";
+		String where = " where published=1";
+		if(code != "")  where += " and `code`='" + code + "'";
+		String sql = "select * from " + tbl + where;
+		resp = DBConnection.getData(sql);
 		return resp;
 	}
 	

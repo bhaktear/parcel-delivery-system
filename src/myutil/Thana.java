@@ -7,13 +7,13 @@ import db.DBConnection;
 
 public class Thana {
 	
-	private String tbl = "parcel_thana";
+	private static String tbl = "parcel_thana";
 	
-	public Map<String, Object> getDist() {
+	public static Map<String, Object> getDist() {
 		return getDist(null);
 	}
 	
-	public Map<String, Object> getDist(String dist_code){
+	public static Map<String, Object> getDist(String dist_code){
 		Map<String, Object> resp = new HashMap<>();
 		String where = "";
 		if(dist_code != null) {
@@ -25,11 +25,11 @@ public class Thana {
 		return resp;
 	}
 	
-	public Map<String, Object> getThana() {
+	public static Map<String, Object> getThana() {
 		return getThana(null);
 	}
 	
-	public Map<String, Object> getThana(String dist_name) {
+	public static Map<String, Object> getThana(String dist_name) {
 		Map<String, Object> resp = new HashMap<>();
 		String where = "";
 		if(dist_name != null) {

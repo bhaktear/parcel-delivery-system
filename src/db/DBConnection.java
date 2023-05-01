@@ -54,6 +54,56 @@ public class DBConnection {
 		return rows;
 	}
 	
+	
+	public static int getLastInsertId(String sql) {
+		int rows = 0;
+		int lastInsertId =0;
+		try {
+			Connection con = createDBConnection();
+			Statement stmt = con.createStatement();
+			rows = stmt.executeUpdate(sql,stmt.RETURN_GENERATED_KEYS);
+			ResultSet rs = stmt.getGeneratedKeys();
+			if(rs.next()) {
+				lastInsertId = rs.getInt(1);
+			}
+			/*
+			String lastInsertIdQuery = "SELECT LAST_INSERT_ID()";
+			ResultSet rs = stmt.executeQuery(lastInsertIdQuery,stmt.RETURN_GENERATED_KEYS);
+			
+			System.out.println(rs.next());
+			if(rs.next()) {
+				lastInsertId = rs.getInt("id");
+				return lastInsertId;
+			}
+			*/
+			con.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		//System.out.println(lastInsertId);
+		return lastInsertId;
+	}
+	
+	
+	public static String generateDynamicInsertSql(String tbl,Map<String,Object> map) {
+		String value = "";
+		String field = "";
+		int i = 0;
+		for (Map.Entry<String, Object> entry : map.entrySet()) {
+			field += "`" + entry.getKey() + "`";
+			value += '"' + entry.getValue().toString() + '"';
+			//System.out.println(key + " "+ value);
+			if(++i != map.size()) {
+				field += ",";
+				value += ",";
+			}
+		}
+		
+		String sql = "insert into " + tbl + " (" + field + ") values (" + value + ")";
+		//System.out.println(sql);
+		return sql;
+	}
+	
 	public static Map<String, Object> getData(String sql) {
 		Map<String, Object> resp = new HashMap<>();
 		List<Map<String, Object>> rows = new ArrayList<>();

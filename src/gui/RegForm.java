@@ -67,8 +67,7 @@ public class RegForm extends JFrame{
 		distField.addActionListener(e-> {
 			String selectedDist = distField.getSelectedItem().toString();
 			//System.out.println(selectedDist);
-			Thana thanas = new Thana();
-			Map<String, Object> thana = thanas.getThana(selectedDist);
+			Map<String, Object> thana = Thana.getThana(selectedDist);
 			List<Map<String,Object>> thanaData = (List<Map<String, Object>>) thana.get("data");
 			//System.out.println(thanaData);
 			Dropdown.addDropdown(thanaData, "thana_code", "thana_name", thanaField);
@@ -143,8 +142,8 @@ public class RegForm extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		Thana thana = new Thana();
-		Map<String, Object> dist = thana.getDist();
+		
+		Map<String, Object> dist = Thana.getDist();
 		List<Map<String,Object>> distData = (List<Map<String, Object>>) dist.get("data");
 		//System.out.println(distData);	
 		//Map<String, Object> thanas = thana.getDist();
@@ -330,7 +329,7 @@ public class RegForm extends JFrame{
 		
 		User user = new User();
 		resp = user.getUser(user_id.toString());
-		System.out.println(resp);
+		//System.out.println(resp);
 		
 		int err = (int) resp.get("err");
 		//check duplicate data exists following user_id

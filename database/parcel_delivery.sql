@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 01, 2023 at 05:13 AM
+-- Generation Time: May 01, 2023 at 07:09 PM
 -- Server version: 8.0.32-0ubuntu0.20.04.2
 -- PHP Version: 7.4.3-4ubuntu2.18
 
@@ -48,6 +48,105 @@ CREATE TABLE `parcel_merchant` (
 
 INSERT INTO `parcel_merchant` (`id`, `user_id`, `merchant_name`, `name`, `district`, `thana`, `address`, `business_type`, `fb_page`, `star_customer`, `star_customer_discount`, `status`) VALUES
 (2, 'bhaktear', 'Bhaktear Uddin', 'Bhaktear Uddin', 'DHAKA', 'DHANMONDI', 'Bhaktear Uddin', NULL, NULL, NULL, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parcel_options`
+--
+
+CREATE TABLE `parcel_options` (
+  `id` int NOT NULL,
+  `code` int NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `meta` text NOT NULL,
+  `published` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `parcel_options`
+--
+
+INSERT INTO `parcel_options` (`id`, `code`, `name`, `type`, `meta`, `published`) VALUES
+(3, 3, 'Electronic Devices', 'order_type', '', 1),
+(4, 4, 'Electronic Accessories', 'order_type', '', 1),
+(5, 5, 'TV & Home Appliances', 'order_type', '', 1),
+(6, 6, 'Health & Beauty', 'order_type', '', 1),
+(7, 7, 'Babies & Toys', 'order_type', '', 1),
+(8, 8, 'Groceries & Pets', 'order_type', '', 1),
+(9, 9, 'Home & Lifestyle', 'order_type', '', 1),
+(10, 10, 'Women\'s Fashion', 'order_type', '', 1),
+(11, 11, 'Men\'s Fashion', 'order_type', '', 1),
+(12, 12, 'Watches & Accessories', 'order_type', '', 1),
+(13, 13, 'Sports & Outdoor', 'order_type', '', 1),
+(14, 14, 'Automotive & Motorbike Accessories', 'order_type', '', 1),
+(15, 15, 'Cash on Delivery', 'payment_method', '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parcel_order`
+--
+
+CREATE TABLE `parcel_order` (
+  `id` int NOT NULL,
+  `invoice` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_id` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `merchant_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `merchant_mobile` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_mobile` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_district` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_thana` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_details` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_price` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `delivery_charge` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `discount` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total_delivery_charge` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `total_amount` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_method` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `parcel_order`
+--
+
+INSERT INTO `parcel_order` (`id`, `invoice`, `user_id`, `merchant_name`, `merchant_mobile`, `order_type`, `customer_name`, `customer_mobile`, `customer_district`, `customer_thana`, `customer_address`, `product_type`, `product_details`, `product_price`, `delivery_charge`, `discount`, `total_delivery_charge`, `total_amount`, `payment_method`, `status`, `created_at`, `updated_on`) VALUES
+(1, 'PDS000001', 'bhaktear', 'Bhaktear Uddin', '01520101525', 'Babies & Toys', 'sdsd', '01520101525', 'DHAKA', 'LALBAGH', 'sdds', 'sdds', 'dsds', '500', '80', '5', '75', '575.0', 'Cash on Delivery', '1', '2023-05-01 20:10:44', '2023-05-01 20:10:44'),
+(4, 'PDS000004', 'bhaktear', 'Bhaktear Uddin', '01520101525', 'Choose One', 'dsdf', '01520101525', 'DHAKA', 'KOTWALI', 'ddf', 'fddf', 'fddf', '500', '80', '5', '75', '575.0', 'Cash on Delivery', '2', '2023-05-01 20:14:19', '2023-05-01 20:14:19'),
+(5, 'PDS000005', 'bhaktear', 'Bhaktear Uddin', '01520101525', 'Electronic Accessories', 'dsdf', '01520101525', 'DHAKA', 'KOTWALI', 'ddf', 'fddf', 'fddf', '500', '80', '5', '75', '575.0', 'Cash on Delivery', '1', '2023-05-01 20:14:32', '2023-05-01 20:14:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parcel_status`
+--
+
+CREATE TABLE `parcel_status` (
+  `id` int NOT NULL,
+  `code` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `published` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `parcel_status`
+--
+
+INSERT INTO `parcel_status` (`id`, `code`, `name`, `published`) VALUES
+(1, '1', 'Pending', '1'),
+(2, '2', 'Pickup complete', '1'),
+(3, '3', 'Warehouse', '0'),
+(4, '4', 'Delivered', '1'),
+(5, '5', 'Payment', '0'),
+(7, '6', 'Order Return', '0');
 
 -- --------------------------------------------------------
 
@@ -145,9 +244,9 @@ CREATE TABLE `parcel_user` (
   `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `mobile` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` tinyint(1) NOT NULL,
+  `role` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `published` tinyint(1) NOT NULL
+  `published` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -155,8 +254,8 @@ CREATE TABLE `parcel_user` (
 --
 
 INSERT INTO `parcel_user` (`id`, `user_id`, `user_name`, `email`, `mobile`, `role`, `password`, `published`) VALUES
-(1, 'admin', 'admin', 'bhaktear@gmail.com', '01520101525', 1, '123456', 1),
-(12, 'bhaktear', 'Bhaktear Uddin', 'bhaktear@gmail.com', '01520101525', 2, '123456', 1);
+(1, 'admin', 'admin', 'bhaktear@gmail.com', '01520101525', '1', '123456', '1'),
+(12, 'bhaktear', 'Bhaktear Uddin', 'bhaktear@gmail.com', '01520101525', '2', '123456', '1');
 
 -- --------------------------------------------------------
 
@@ -197,6 +296,25 @@ ALTER TABLE `parcel_merchant`
   ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `parcel_options`
+--
+ALTER TABLE `parcel_options`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `parcel_order`
+--
+ALTER TABLE `parcel_order`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `invoice` (`invoice`);
+
+--
+-- Indexes for table `parcel_status`
+--
+ALTER TABLE `parcel_status`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `parcel_thana`
 --
 ALTER TABLE `parcel_thana`
@@ -226,6 +344,24 @@ ALTER TABLE `random_uid`
 --
 ALTER TABLE `parcel_merchant`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `parcel_options`
+--
+ALTER TABLE `parcel_options`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `parcel_order`
+--
+ALTER TABLE `parcel_order`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `parcel_status`
+--
+ALTER TABLE `parcel_status`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `parcel_thana`
