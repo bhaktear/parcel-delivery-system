@@ -37,7 +37,8 @@ public class AdminDashboard extends JFrame implements ActionListener{
 		this.userID = userID;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setSize(400, 300);
+		setTitle("Admin Dashboard");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
