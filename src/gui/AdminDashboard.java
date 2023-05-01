@@ -13,6 +13,7 @@ public class AdminDashboard extends JFrame implements ActionListener{
 	private String userID;
 	private JLabel lblUserID;
 	private JButton orderList;
+	private JButton updateStatus;
 
 	/**
 	 * Launch the application.
@@ -49,6 +50,9 @@ public class AdminDashboard extends JFrame implements ActionListener{
 		orderList = new JButton("Order List");
 		orderList.addActionListener(this);
 		
+		updateStatus = new JButton("Update Tracking Status");
+		updateStatus.addActionListener(this);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -59,8 +63,10 @@ public class AdminDashboard extends JFrame implements ActionListener{
 							.addComponent(lblUserID, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(140)
-							.addComponent(orderList)))
-					.addContainerGap(80, Short.MAX_VALUE))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(updateStatus, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+								.addComponent(orderList))))
+					.addContainerGap(20, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -69,7 +75,9 @@ public class AdminDashboard extends JFrame implements ActionListener{
 					.addComponent(lblUserID, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 					.addGap(33)
 					.addComponent(orderList)
-					.addContainerGap(155, Short.MAX_VALUE))
+					.addGap(18)
+					.addComponent(updateStatus)
+					.addContainerGap(119, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
@@ -82,8 +90,9 @@ public class AdminDashboard extends JFrame implements ActionListener{
         	OrderList orderList = new OrderList(this.userID);
         	orderList.setVisible(true);
         }
-        
-        
+        if (e.getSource() == updateStatus) {
+        	
+        }
 	}
 
 }
