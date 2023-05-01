@@ -1,16 +1,19 @@
 package gui;
 
+import java.util.*;
+import java.util.List;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.EventQueue;
-
 import javax.swing.*;
 import javax.swing.GroupLayout.*;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+
+
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import myutil.Merchant;
 import myutil.Thana;
 import myutil.User;
 import myutil.Utils;
@@ -28,7 +31,7 @@ public class RegForm extends JFrame{
 	private JTextField emailField;
 	private JLabel lblDist;
 	private JLabel lblThana;
-	private JComboBox thanaField;
+	private JComboBox <String> thanaField;
 	private JLabel lblAddress;
 	private JTextField addressField;
 	private JLabel lblUserID;
@@ -38,7 +41,7 @@ public class RegForm extends JFrame{
 	private JPasswordField confirmPassField;
 	private JLabel lblName;
 	private JButton submitBtn;
-	private JComboBox distField;
+	private JComboBox <String> distField;
 
 	/**
 	 * Launch the application.
@@ -61,6 +64,16 @@ public class RegForm extends JFrame{
 	 */
 	public RegForm() {
 		initialize();
+		distField.addActionListener(e-> {
+			String selectedDist = distField.getSelectedItem().toString();
+			//System.out.println(selectedDist);
+			Thana thanas = new Thana();
+			Map<String, Object> thana = thanas.getThana(selectedDist);
+			List<Map<String,Object>> thanaData = (List<Map<String, Object>>) thana.get("data");
+			//System.out.println(thanaData);
+			Dropdown.addDropdown(thanaData, "thana_code", "thana_name", thanaField);
+		});
+		
 		submitBtn.addActionListener(new ActionListener() {
 			@Override
         	public void actionPerformed(ActionEvent e) {
@@ -69,16 +82,17 @@ public class RegForm extends JFrame{
 				String name = nameField.getText();
 				String mobile = mobileField.getText();
 				String email = emailField.getText();
-				//distField
-				//thanaField
+				String distCode = distField.getSelectedItem().toString();
+				String thanaCode = thanaField.getSelectedItem().toString();
 				String address = addressField.getText();
 				String userID = userIdField.getText();
 				String password = new String(passField.getPassword());
 				String confirmPass = new String(confirmPassField.getPassword());
 				
-				/*
+				
 				if(merchantName.isEmpty() || name.isEmpty() || mobile.isEmpty() || email.isEmpty() || 
-						userID.isEmpty() || password.isEmpty() || confirmPass.isEmpty() ) {
+						userID.isEmpty() || password.isEmpty() || confirmPass.isEmpty() || 
+						distCode.isEmpty() || thanaCode.isEmpty() || address.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Please fill in all fields.");
 					return;
 				}
@@ -100,7 +114,7 @@ public class RegForm extends JFrame{
 					JOptionPane.showMessageDialog(null, "Invalid Email Address");
 					return;
 				}
-				*/
+				
 				
 				//put all form data in HashMap
 				HashMap<String, Object> map = new HashMap<>();
@@ -108,10 +122,12 @@ public class RegForm extends JFrame{
 				map.put("name", name);
 				map.put("mobile", mobile);
 				map.put("email", email);
+				map.put("dist_code", distCode);
+				map.put("thana_code", thanaCode);
 				map.put("address", address);
 				map.put("user_id", userID);
 				map.put("password", password);
-				
+				//System.out.println(map);
 				addReg(map);
 				
 			}
@@ -126,12 +142,23 @@ public class RegForm extends JFrame{
 		setBounds(100, 100, 450, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		Thana thana = new Thana();
-		Map<String, Object> dist = new HashMap<>();
-		dist = thana.getDist();
 		
-		//Utils.retrieve_data(distData.get("data"));
-		System.out.println(dist);
+		Thana thana = new Thana();
+		Map<String, Object> dist = thana.getDist();
+		List<Map<String,Object>> distData = (List<Map<String, Object>>) dist.get("data");
+		//System.out.println(distData);	
+		//Map<String, Object> thanas = thana.getDist();
+		
+		/*
+		for(Map<String,Object> row:distData ) {
+			String key = row.get("dist_code").toString();
+			String value = row.get("dist_name").toString();
+			System.out.println(key + " " + value);
+			distField.addItem(value);
+			distField.putClientProperty(key, value);
+		}
+		*/
+		
 		
 		lblMerchantName = new JLabel("Merchant Name");
 		
@@ -154,10 +181,12 @@ public class RegForm extends JFrame{
 		emailField.setColumns(10);
 		
 		lblDist = new JLabel("District");
-		distField = new JComboBox();
+		distField = new JComboBox<String>();
+		Dropdown.addDropdown(distData, "dist_code", "dist_name", distField);
+		
 		
 		lblThana = new JLabel("Thana");
-		thanaField = new JComboBox();
+		thanaField = new JComboBox<String>();
 		
 		lblAddress = new JLabel("Address");
 		
@@ -301,7 +330,7 @@ public class RegForm extends JFrame{
 		
 		User user = new User();
 		resp = user.getUser(user_id.toString());
-		
+		System.out.println(resp);
 		
 		int err = (int) resp.get("err");
 		//check duplicate data exists following user_id
@@ -312,6 +341,25 @@ public class RegForm extends JFrame{
 			JOptionPane.showMessageDialog(null, "Duplicate data Found");
 			return;
 		}
+		
+		
+		//insert user table
+		Map<String, Object> insertResp = new HashMap<>();
+		insertResp = user.insert(map);
+		if((int) insertResp.get("err") == 1) {
+			JOptionPane.showMessageDialog(null, insertResp.get("msg"));
+			return;
+		}
+		
+		//insert merchant table
+		Map<String, Object> merchantResp = new HashMap<>();
+		Merchant merchant = new Merchant();
+		merchantResp = merchant.insert(map);
+		
+		//if((int) merchantResp.get("err") == 1) {
+		JOptionPane.showMessageDialog(null, merchantResp.get("msg"));
+			//return;
+		//}
 		
 		
 		

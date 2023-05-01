@@ -2,6 +2,8 @@ package myutil;
 
 import java.util.*;
 
+import db.DBConnection;
+
 public class Utils {
 	
 	public static boolean validateMobile(String mobile) {
@@ -32,5 +34,50 @@ public class Utils {
 				System.out.println(columnName + ": " + value);
 			}
 		}
+	}
+	
+	
+	public static String generateRandomString() {
+		return generateRandomString(8);
+	}
+	
+	
+	public static String generateRandomString(int length) {
+		String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		String uuid = UUID.randomUUID().toString().toUpperCase().replaceAll("-", "");
+		String alphanumeric = uuid.replaceAll("[^A-Za-z0-9]", "");
+		return alphanumeric.substring(0, length);
+	}
+	
+	
+	public static String getRandomUid(int length) {
+		String randomString = generateRandomString(length);
+		//System.out.println(randomString);
+		while(!is_random_uid(randomString)) {
+			randomString = generateRandomString(length);
+		}
+		return randomString; 
+	}
+	
+	public static boolean is_random_uid(String userId) {
+		boolean unique = false;
+		//System.out.println(userId);
+		Map<String, Object> resp = new HashMap<>();
+		String tbl = "random_uid";
+		String sql = "select * from " + tbl + " where user_id='" + userId + "'";
+		resp = DBConnection.getData(sql);
+		//System.out.println(resp);
+		int err = (int) resp.get("err");
+		//err = 1 no data found
+		//err = 0 data found
+		if(err == 1) {
+			//insert data into table
+			String sql1 = "insert into " + tbl + "(`user_id`) Values ('" + userId + "')";
+			DBConnection.query(sql1);
+			unique = true;
+		}else {
+			//data already exits
+		}
+		return unique;
 	}
 }

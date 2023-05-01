@@ -5,10 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 import myutil.Utils;
 
@@ -32,6 +30,7 @@ public class DBConnection {
 	
 	
 	public static void query(String query) {
+		int rows = 0;
 		try {
 			Connection con = createDBConnection();
 			Statement stmt = con.createStatement();
@@ -42,6 +41,19 @@ public class DBConnection {
 		}
 	}
 	
+	public static int insert(String sql) {
+		int rows = 0;
+		try {
+			Connection con = createDBConnection();
+			Statement stmt = con.createStatement();
+			rows = stmt.executeUpdate(sql);
+			con.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return rows;
+	}
+	
 	public static Map<String, Object> getData(String sql) {
 		Map<String, Object> resp = new HashMap<>();
 		List<Map<String, Object>> rows = new ArrayList<>();
@@ -50,11 +62,8 @@ public class DBConnection {
 			Connection con = db.createDBConnection();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			Map<String,Object> row = new HashMap<>();
-			//int rowCount = rs.getRow();
 			ResultSetMetaData rsmd = rs.getMetaData();
 			int columnsNumber = rsmd.getColumnCount();
-			
 			
 			if(!rs.next()) {
 				resp = Utils.get_resp(1, "No data Found", null);
@@ -62,6 +71,7 @@ public class DBConnection {
 				return resp;
 			}else {
 				do {
+					Map<String,Object> row = new HashMap<>();
 					for(int i = 1; i<= columnsNumber; i++) {
 						String columnName = rsmd.getColumnName(i);
 						Object columnValue = rs.getObject(i);

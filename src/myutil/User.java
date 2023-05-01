@@ -21,4 +21,37 @@ public class User {
 		resp = DBConnection.getData(sql);
 		return resp;
 	}
+	
+	public Map<String, Object> insert(Map<String,Object> map) {
+		Map<String, Object> resp = new HashMap<>();
+		resp = Utils.get_resp(1, "Error Updating information", null);
+		
+		String user_id = map.get("user_id").toString();
+		String user_name = map.get("name").toString();
+		String email = map.get("email").toString();
+		String mobile = map.get("mobile").toString();
+		String password = map.get("password").toString();
+		int role = 2;
+		int published = 1;
+		
+		String sql = "insert into " + tbl + " (`user_id`,`user_name`,`email`,`mobile`,`password`,`role`,"
+				+ "`published`) values ('"+ user_id + "','" + user_name + "','" + email + "','" + mobile
+				+ "','" + password + "','" + role + "','" + published + "')" ;
+		//System.out.println(sql);
+		int rows = DBConnection.insert(sql);
+		//System.out.println(rows);
+		if(rows == 1) {
+			resp = Utils.get_resp(0, "Data inserted successfully", null);
+		}
+		//System.out.println(resp);
+		return resp;
+		
+		/*
+		for (Map.Entry<String, Object> entry : map.entrySet()) {
+		    //System.out.println(entry.getKey() + " : " + entry.getValue());
+			
+		}
+		*/
+		
+	}
 }
