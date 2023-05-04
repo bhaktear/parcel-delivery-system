@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/xampp/htdocs/parcel/parcel-delivery-system/mysql-connector-j-8.0.32.jar"/>
+	<classpathentry kind="lib" path="C:/xampp/htdocs/parcel-delivery-system/mysql-connector-j-8.0.32.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
