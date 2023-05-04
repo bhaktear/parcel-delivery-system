@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 01, 2023 at 07:09 PM
+-- Generation Time: May 04, 2023 at 03:11 PM
 -- Server version: 8.0.32-0ubuntu0.20.04.2
 -- PHP Version: 7.4.3-4ubuntu2.18
 
@@ -47,7 +47,9 @@ CREATE TABLE `parcel_merchant` (
 --
 
 INSERT INTO `parcel_merchant` (`id`, `user_id`, `merchant_name`, `name`, `district`, `thana`, `address`, `business_type`, `fb_page`, `star_customer`, `star_customer_discount`, `status`) VALUES
-(2, 'bhaktear', 'Bhaktear Uddin', 'Bhaktear Uddin', 'DHAKA', 'DHANMONDI', 'Bhaktear Uddin', NULL, NULL, NULL, NULL, 1);
+(2, 'bhaktear', 'Bhaktear Uddin', 'Bhaktear Uddin', 'DHAKA', 'DHANMONDI', 'Bhaktear Uddin', NULL, NULL, NULL, NULL, 1),
+(3, 'nishat', 'nishat rayhana', 'nishat rayhana', 'DHAKA', 'MIRPUR', 'nishat rayhana', NULL, NULL, NULL, NULL, 1),
+(4, 'sagar', 'Sagar', 'Sagar', 'DHAKA', 'DHANMONDI', 'Sagar', NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -121,7 +123,9 @@ CREATE TABLE `parcel_order` (
 INSERT INTO `parcel_order` (`id`, `invoice`, `user_id`, `merchant_name`, `merchant_mobile`, `order_type`, `customer_name`, `customer_mobile`, `customer_district`, `customer_thana`, `customer_address`, `product_type`, `product_details`, `product_price`, `delivery_charge`, `discount`, `total_delivery_charge`, `total_amount`, `payment_method`, `status`, `created_at`, `updated_on`) VALUES
 (1, 'PDS000001', 'bhaktear', 'Bhaktear Uddin', '01520101525', 'Babies & Toys', 'sdsd', '01520101525', 'DHAKA', 'LALBAGH', 'sdds', 'sdds', 'dsds', '500', '80', '5', '75', '575.0', 'Cash on Delivery', '1', '2023-05-01 20:10:44', '2023-05-01 20:10:44'),
 (4, 'PDS000004', 'bhaktear', 'Bhaktear Uddin', '01520101525', 'Choose One', 'dsdf', '01520101525', 'DHAKA', 'KOTWALI', 'ddf', 'fddf', 'fddf', '500', '80', '5', '75', '575.0', 'Cash on Delivery', '2', '2023-05-01 20:14:19', '2023-05-01 20:14:19'),
-(5, 'PDS000005', 'bhaktear', 'Bhaktear Uddin', '01520101525', 'Electronic Accessories', 'dsdf', '01520101525', 'DHAKA', 'KOTWALI', 'ddf', 'fddf', 'fddf', '500', '80', '5', '75', '575.0', 'Cash on Delivery', '1', '2023-05-01 20:14:32', '2023-05-01 20:14:32');
+(5, 'PDS000005', 'bhaktear', 'Bhaktear Uddin', '01520101525', 'Electronic Accessories', 'dsdf', '01520101525', 'DHAKA', 'KOTWALI', 'ddf', 'fddf', 'fddf', '500', '80', '5', '75', '575.0', 'Cash on Delivery', '4', '2023-05-01 20:14:32', '2023-05-01 20:14:32'),
+(6, 'IN000006', 'bhaktear', 'Bhaktear Uddin', '01520101525', 'TV & Home Appliances', 'gowrab', '01724416980', 'DHAKA', 'DHANMONDI', 'dhanmondi', 'Electronics', 'Headphone- 2 pc', '1500', '80', '0', '80', '1580.0', 'Cash on Delivery', '1', '2023-05-03 20:47:42', '2023-05-03 20:47:42'),
+(7, 'IN000007', 'sagar', 'Sagar', '01520101525', 'Electronic Devices', 'saiket', '01520101525', 'DHAKA', 'GULSHAN', 'Gulsan', 'Headphone', 'Headphone - 3 pc', '3000', '80', '0', '80', '3080.0', 'Cash on Delivery', '1', '2023-05-04 19:41:49', '2023-05-04 19:41:49');
 
 -- --------------------------------------------------------
 
@@ -255,7 +259,9 @@ CREATE TABLE `parcel_user` (
 
 INSERT INTO `parcel_user` (`id`, `user_id`, `user_name`, `email`, `mobile`, `role`, `password`, `published`) VALUES
 (1, 'admin', 'admin', 'bhaktear@gmail.com', '01520101525', '1', '123456', '1'),
-(12, 'bhaktear', 'Bhaktear Uddin', 'bhaktear@gmail.com', '01520101525', '2', '123456', '1');
+(12, 'bhaktear', 'Bhaktear Uddin', 'bhaktear@gmail.com', '01520101525', '2', '123456', '1'),
+(13, 'nishat', 'nishat rayhana', 'bhak@gmail.com', '01311111111', '2', '123456', '1'),
+(14, 'sagar', 'Sagar', 'bha@gmail.com', '01520101525', '2', '123456', '1');
 
 -- --------------------------------------------------------
 
@@ -343,7 +349,7 @@ ALTER TABLE `random_uid`
 -- AUTO_INCREMENT for table `parcel_merchant`
 --
 ALTER TABLE `parcel_merchant`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `parcel_options`
@@ -355,7 +361,7 @@ ALTER TABLE `parcel_options`
 -- AUTO_INCREMENT for table `parcel_order`
 --
 ALTER TABLE `parcel_order`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `parcel_status`
@@ -373,7 +379,7 @@ ALTER TABLE `parcel_thana`
 -- AUTO_INCREMENT for table `parcel_user`
 --
 ALTER TABLE `parcel_user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `random_uid`
