@@ -42,6 +42,7 @@ public class RegForm extends JFrame{
 	private JLabel lblName;
 	private JButton submitBtn;
 	private JComboBox <String> distField;
+	private JButton btnBack;
 
 	/**
 	 * Launch the application.
@@ -71,6 +72,14 @@ public class RegForm extends JFrame{
 			List<Map<String,Object>> thanaData = (List<Map<String, Object>>) thana.get("data");
 			//System.out.println(thanaData);
 			Dropdown.addDropdown(thanaData, "thana_code", "thana_name", thanaField);
+		});
+		
+		btnBack.addActionListener(new ActionListener() {
+			@Override
+        	public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Home home = new Home();
+			}
 		});
 		
 		submitBtn.addActionListener(new ActionListener() {
@@ -208,6 +217,8 @@ public class RegForm extends JFrame{
 		submitBtn = new JButton("Submit");
 		submitBtn.setBackground(new Color(138, 226, 52));
 		
+		btnBack = new JButton("Back");
+		
 		
 		
 		
@@ -259,7 +270,10 @@ public class RegForm extends JFrame{
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(confirmPassField, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE)
 										.addComponent(passField)
-										.addComponent(submitBtn)))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(submitBtn)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(btnBack))))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblUserID, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
@@ -308,13 +322,15 @@ public class RegForm extends JFrame{
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblPass, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblConPass, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblConPass, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(submitBtn)
+								.addComponent(btnBack)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(passField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(confirmPassField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(submitBtn)
 					.addContainerGap(46, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);		
@@ -357,8 +373,14 @@ public class RegForm extends JFrame{
 		
 		//if((int) merchantResp.get("err") == 1) {
 		JOptionPane.showMessageDialog(null, merchantResp.get("msg"));
+		//err = 0 send to login pagecd 
 			//return;
 		//}
+		if((int) merchantResp.get("err") == 0) {
+			setVisible(false);
+			LoginForm login = new LoginForm();
+			login.setVisible(true);
+		}
 		
 		
 		

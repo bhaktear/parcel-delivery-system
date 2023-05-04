@@ -6,6 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class AdminDashboard extends JFrame implements ActionListener{
 
@@ -14,6 +15,7 @@ public class AdminDashboard extends JFrame implements ActionListener{
 	private JLabel lblUserID;
 	private JButton orderList;
 	private JButton updateStatus;
+	private JButton logoutbtn;
 
 	/**
 	 * Launch the application.
@@ -50,8 +52,11 @@ public class AdminDashboard extends JFrame implements ActionListener{
 		orderList = new JButton("Order List");
 		orderList.addActionListener(this);
 		
-		updateStatus = new JButton("Update Tracking Status");
+		updateStatus = new JButton("Update Delivery Status");
 		updateStatus.addActionListener(this);
+		
+		logoutbtn = new JButton("Logout");
+		logoutbtn.addActionListener(this);
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -63,10 +68,14 @@ public class AdminDashboard extends JFrame implements ActionListener{
 							.addComponent(lblUserID, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(140)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(updateStatus, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-								.addComponent(orderList))))
-					.addContainerGap(20, Short.MAX_VALUE))
+							.addComponent(orderList))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(82)
+							.addComponent(updateStatus, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(147)
+							.addComponent(logoutbtn)))
+					.addContainerGap(30, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -77,7 +86,9 @@ public class AdminDashboard extends JFrame implements ActionListener{
 					.addComponent(orderList)
 					.addGap(18)
 					.addComponent(updateStatus)
-					.addContainerGap(119, Short.MAX_VALUE))
+					.addGap(38)
+					.addComponent(logoutbtn)
+					.addContainerGap(49, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
@@ -91,8 +102,19 @@ public class AdminDashboard extends JFrame implements ActionListener{
         	orderList.setVisible(true);
         }
         if (e.getSource() == updateStatus) {
-        	
+        	setVisible(false);
+        	UpdateDeliveryStatus ds = new UpdateDeliveryStatus(this.userID);
+        	ds.setVisible(true);
+        }
+        
+        if (e.getSource() == logoutbtn) {
+        	int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.YES_OPTION) {
+            	setVisible(false);
+            	LoginForm login = new LoginForm();
+    			login.setVisible(true);
+            }
         }
 	}
-
 }

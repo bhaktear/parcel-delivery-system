@@ -11,7 +11,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class UserDashboad extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
-	private JButton profileButton;
 	private JButton logoutButton;
 	private JButton orderButton;
 	private JLabel userIDLabel;
@@ -55,10 +54,9 @@ public class UserDashboad extends JFrame implements ActionListener{
         
         orderButton.addActionListener(this);
         
-        profileButton = new JButton("Profile");
-        
         orderList = new JButton("Order List");
         orderList.addActionListener(this);
+        logoutButton.addActionListener(this);
         
         GroupLayout groupLayout = new GroupLayout(getContentPane());
         groupLayout.setHorizontalGroup(
@@ -76,12 +74,10 @@ public class UserDashboad extends JFrame implements ActionListener{
         								.addComponent(orderList, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
         								.addGap(86))
         							.addGroup(groupLayout.createSequentialGroup()
-        								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        									.addComponent(logoutButton)
-        									.addComponent(profileButton))
+        								.addComponent(logoutButton)
         								.addGap(96)))
         						.addComponent(orderButton))))
-        			.addContainerGap(85, Short.MAX_VALUE))
+        			.addContainerGap(75, Short.MAX_VALUE))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
@@ -92,15 +88,12 @@ public class UserDashboad extends JFrame implements ActionListener{
         			.addComponent(orderButton)
         			.addPreferredGap(ComponentPlacement.UNRELATED)
         			.addComponent(orderList)
-        			.addGap(18)
-        			.addComponent(profileButton)
-        			.addGap(35)
+        			.addGap(78)
         			.addComponent(logoutButton)
         			.addGap(35))
         );
         getContentPane().setLayout(groupLayout);
-        profileButton.addActionListener(this);
-        logoutButton.addActionListener(this);
+        
         
 		
 		/*
@@ -123,6 +116,16 @@ public class UserDashboad extends JFrame implements ActionListener{
         	setVisible(false);
         	OrderList orderList = new OrderList(this.userID);
         	orderList.setVisible(true);
+        }
+        
+        if (e.getSource() == logoutButton) {
+        	int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.YES_OPTION) {
+            	setVisible(false);
+            	LoginForm login = new LoginForm();
+    			login.setVisible(true);
+            }
         }
         
         

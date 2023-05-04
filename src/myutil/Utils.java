@@ -47,15 +47,21 @@ public class Utils {
 	}
 	
 	public static Map<String, Object> getStatus(){
-		return getStatus(null);
+		return getStatus("");
 	}
 	
 	public static Map<String, Object> getStatus(String code){
+		return getStatus(code,"");
+	}
+	
+	public static Map<String, Object> getStatus(String code,String name){
 		Map<String, Object> resp = new HashMap<>();
 		String tbl = "parcel_status";
 		String where = " where published=1";
 		if(code != "")  where += " and `code`='" + code + "'";
+		if(name != "")  where += " and `name`='" + name + "'";
 		String sql = "select * from " + tbl + where;
+		//System.out.println(sql);
 		resp = DBConnection.getData(sql);
 		return resp;
 	}

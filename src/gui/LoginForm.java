@@ -15,6 +15,7 @@ public class LoginForm extends JFrame{
 	//private JButton cancelButton;
 	private String tbl = "parcel_user";
 	private String LoginErrMsg = "Invalid username or password";
+	private JButton backBtn;
 	
 	public LoginForm() {
 		setLayout(null);
@@ -36,7 +37,8 @@ public class LoginForm extends JFrame{
         loginButton.setBackground(Color.BLACK);
         loginButton.setForeground(Color.WHITE);
         loginButton.setBounds(150, 140, 150, 30);
-        //cancelButton = new JButton("Cancel");
+        backBtn = new JButton("Back");
+        backBtn.setBounds(150, 180, 150, 30);
         
         //setLayout(new GridLayout(3, 2));
         
@@ -46,10 +48,18 @@ public class LoginForm extends JFrame{
         add(passwordLabel);
         add(passwordField);
         add(loginButton);
+        add(backBtn);
         //add(cancelButton);    
         
         setLocation(450,200);
         setVisible(true);
+        
+        backBtn.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		Home home = new Home();
+        	}
+        });
         
         loginButton.addActionListener(new ActionListener() {
         	

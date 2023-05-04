@@ -165,7 +165,7 @@ public class OrderForm extends JFrame implements ActionListener{
 		
 		deliveryChargeDiscountField = new JTextField();
 		deliveryChargeDiscountField.setColumns(10);
-		//deliveryChargeDiscountField.setText("0"); // by default discount = 0
+		deliveryChargeDiscountField.setText("0"); // by default discount = 0
 		
 		JLabel lblTotalAmount = new JLabel("Total Amount");
 		
